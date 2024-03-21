@@ -1,0 +1,52 @@
+<?php
+
+namespace Inserve\ALSOCloudMarketplaceAPI\API;
+
+use Inserve\ALSOCloudMarketplaceAPI\Exception\MarketplaceAPIException;
+use Inserve\ALSOCloudMarketplaceAPI\Model\Company;
+use Symfony\Component\Serializer\Exception\ExceptionInterface;
+
+/**
+ *
+ */
+class CompanyAPI extends AbstractAPIClient
+{
+    /**
+     * @param int $accountId
+     *
+     * @return Company|null
+     *
+     * @throws MarketplaceAPIException|ExceptionInterface
+     */
+    public function get(int $accountId): ?Company
+    {
+        $response = $this->apiClient->call(
+            '/GetCompany',
+            json_encode(compact('accountId'))
+        );
+
+        return $this->apiClient->denormalize($response, Company::class);
+    }
+
+    /**
+     * @param int $parentAccountId
+     *
+     * @return Company[]
+     *
+     * @throws MarketplaceAPIException|ExceptionInterface
+     */
+    public function list(int $parentAccountId): array
+    {
+        $response = $this->apiClient->call(
+            '/GetCompanies',
+            json_encode(compact('parentAccountId'))
+        );
+
+        $companies = [];
+        foreach ($response as $item) {
+            $companies[] = $this->apiClient->denormalize($item, Company::class);
+        }
+
+        return $companies;
+    }
+}
