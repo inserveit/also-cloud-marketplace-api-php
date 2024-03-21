@@ -22,7 +22,7 @@ class CompanyAPI extends AbstractAPIClient
     {
         $response = $this->apiClient->call(
             '/GetCompany',
-            json_encode(compact('accountId'))
+            (string) json_encode(compact('accountId'))
         );
 
         return $this->apiClient->denormalize($response, Company::class);
@@ -39,9 +39,10 @@ class CompanyAPI extends AbstractAPIClient
     {
         $response = $this->apiClient->call(
             '/GetCompanies',
-            json_encode(compact('parentAccountId'))
+            (string) json_encode(compact('parentAccountId'))
         );
 
+        /** @var Company[] $companies */
         $companies = [];
         foreach ($response as $item) {
             $companies[] = $this->apiClient->denormalize($item, Company::class);

@@ -90,14 +90,14 @@ class APIClient
     }
 
     /**
-     * @param array  $response
+     * @param mixed  $response
      * @param string $class
      *
      * @return mixed
      *
      * @throws ExceptionInterface
      */
-    public function denormalize(array $response, string $class): mixed
+    public function denormalize(mixed $response, string $class): mixed
     {
         try {
             return $this->normalizer->denormalize($response, $class);

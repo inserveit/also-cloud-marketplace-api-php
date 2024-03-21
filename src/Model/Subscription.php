@@ -524,7 +524,7 @@ class Subscription
     }
 
     /**
-     * @param array|null $renewFields
+     * @param Field[]|null $renewFields
      *
      * @return $this
      */

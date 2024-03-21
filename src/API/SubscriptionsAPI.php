@@ -22,7 +22,7 @@ class SubscriptionsAPI extends AbstractAPIClient
     {
         $response = $this->apiClient->call(
             '/GetSubscription',
-            json_encode(compact('accountId'))
+            (string) json_encode(compact('accountId'))
         );
 
         return $this->apiClient->denormalize($response, Subscription::class);
@@ -40,9 +40,10 @@ class SubscriptionsAPI extends AbstractAPIClient
     {
         $response = $this->apiClient->call(
             '/GetSubscriptions',
-            json_encode(compact('parentAccountId', 'excludeUserLevel'))
+            (string) json_encode(compact('parentAccountId', 'excludeUserLevel'))
         );
 
+        /** @var Subscription[] $subscriptions */
         $subscriptions = [];
         foreach ($response as $item) {
             $subscriptions[] = $this->apiClient->denormalize($item, Subscription::class);

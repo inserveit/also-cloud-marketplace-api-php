@@ -27,8 +27,8 @@ class MarketplaceAPI
     }
 
     /**
-     * @param string $name
-     * @param array  $arguments
+     * @param string        $name
+     * @param array<string> $arguments
      *
      * @return mixed
      */
@@ -64,7 +64,7 @@ class MarketplaceAPI
     public function authenticate(string $username, #[\SensitiveParameter] string $password): string
     {
         $loginData = json_encode(compact('username', 'password'));
-        $sessionToken = $this->apiClient->call('GetSessionToken', $loginData);
+        $sessionToken = (string) $this->apiClient->call('GetSessionToken', (string) $loginData);
         $this->apiClient->setSessionToken($sessionToken);
 
         return $sessionToken;

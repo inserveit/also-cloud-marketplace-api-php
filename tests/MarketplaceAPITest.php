@@ -12,6 +12,8 @@ use GuzzleHttp\Psr7\Response;
 use Inserve\ALSOCloudMarketplaceAPI\Exception\MarketplaceAPIException;
 use Inserve\ALSOCloudMarketplaceAPI\MarketplaceAPI;
 use PHPUnit\Framework\TestCase;
+use Psr\Http\Client\RequestExceptionInterface;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  *
@@ -49,7 +51,7 @@ class MarketplaceAPITest extends TestCase
     public function testAuthenticate(): void
     {
         $this->setExpectedResponses([
-            new Response(200, [], json_encode('sessionToken')),
+            new Response(200, [], (string) json_encode('sessionToken')),
         ]);
 
         self::assertSame(
@@ -59,7 +61,7 @@ class MarketplaceAPITest extends TestCase
     }
 
     /**
-     * @param array $responses
+     * @param array<ResponseInterface|RequestExceptionInterface> $responses
      *
      * @return void
      */
