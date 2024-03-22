@@ -4,14 +4,16 @@ namespace Inserve\ALSOCloudMarketplaceAPI;
 
 use GuzzleHttp\ClientInterface;
 use Inserve\ALSOCloudMarketplaceAPI\API\CompanyAPI;
-use Inserve\ALSOCloudMarketplaceAPI\API\SubscriptionsAPI;
+use Inserve\ALSOCloudMarketplaceAPI\API\SubscriptionAPI;
+use Inserve\ALSOCloudMarketplaceAPI\API\UserAPI;
 use Inserve\ALSOCloudMarketplaceAPI\Client\APIClient;
 use Inserve\ALSOCloudMarketplaceAPI\Exception\MarketplaceAPIException;
 use Psr\Log\LoggerInterface;
 
 /**
- * @property CompanyAPI       $company
- * @property SubscriptionsAPI $subscriptions
+ * @property CompanyAPI      $company
+ * @property SubscriptionAPI $subscription
+ * @property UserAPI         $user
  */
 class MarketplaceAPI
 {

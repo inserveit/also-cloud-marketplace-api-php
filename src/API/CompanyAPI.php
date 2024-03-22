@@ -4,6 +4,7 @@ namespace Inserve\ALSOCloudMarketplaceAPI\API;
 
 use Inserve\ALSOCloudMarketplaceAPI\Exception\MarketplaceAPIException;
 use Inserve\ALSOCloudMarketplaceAPI\Model\Company;
+use Inserve\ALSOCloudMarketplaceAPI\Model\CreditLimit;
 use Symfony\Component\Serializer\Exception\ExceptionInterface;
 
 /**
@@ -49,5 +50,23 @@ class CompanyAPI extends AbstractAPIClient
         }
 
         return $companies;
+    }
+
+    /**
+     * @param int $accountId
+     *
+     * @return CreditLimit|null
+     *
+     * @throws ExceptionInterface
+     * @throws MarketplaceAPIException
+     */
+    public function getCreditLimit(int $accountId): ?CreditLimit
+    {
+        $response = $this->apiClient->call(
+            '/GetCreditLimit',
+            (string) json_encode(compact('accountId'))
+        );
+
+        return $this->apiClient->denormalize($response, CreditLimit::class);
     }
 }
