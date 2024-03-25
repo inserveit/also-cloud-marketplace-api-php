@@ -10,7 +10,7 @@ use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
 use Inserve\ALSOCloudMarketplaceAPI\Exception\MarketplaceAPIException;
-use Inserve\ALSOCloudMarketplaceAPI\MarketplaceAPI;
+use Inserve\ALSOCloudMarketplaceAPI\MarketplaceAPIClient;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Client\RequestExceptionInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -18,10 +18,10 @@ use Psr\Http\Message\ResponseInterface;
 /**
  *
  */
-class MarketplaceAPITest extends TestCase
+class MarketplaceAPIClientTest extends TestCase
 {
     protected ClientInterface $httpClient;
-    protected MarketplaceAPI $marketplaceAPI;
+    protected MarketplaceAPIClient $marketplaceAPI;
 
     /**
      * @return void
@@ -71,7 +71,7 @@ class MarketplaceAPITest extends TestCase
         $handlerStack = HandlerStack::create($mockHandler);
 
         $this->httpClient = new Client(['handler' => $handlerStack]);
-        $this->marketplaceAPI = new MarketplaceAPI($this->httpClient);
+        $this->marketplaceAPI = new MarketplaceAPIClient($this->httpClient);
     }
 
     /**

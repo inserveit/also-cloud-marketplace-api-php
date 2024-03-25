@@ -136,6 +136,8 @@ class APIClient
                 $errorMessage = $errorResponse['Reason']['Text']['#'] ?? 'Invalid API call';
             }
 
+            $this->logError($errorMessage);
+
             throw new MarketplaceAPIException(
                 sprintf('%s: %s', $url, $errorMessage),
                 $exception->getCode()

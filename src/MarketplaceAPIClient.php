@@ -4,18 +4,21 @@ namespace Inserve\ALSOCloudMarketplaceAPI;
 
 use GuzzleHttp\ClientInterface;
 use Inserve\ALSOCloudMarketplaceAPI\API\CompanyAPI;
+use Inserve\ALSOCloudMarketplaceAPI\API\MarketplaceAPI;
 use Inserve\ALSOCloudMarketplaceAPI\API\SubscriptionAPI;
 use Inserve\ALSOCloudMarketplaceAPI\API\UserAPI;
 use Inserve\ALSOCloudMarketplaceAPI\Client\APIClient;
 use Inserve\ALSOCloudMarketplaceAPI\Exception\MarketplaceAPIException;
 use Psr\Log\LoggerInterface;
+use SensitiveParameter;
 
 /**
  * @property CompanyAPI      $company
+ * @property MarketplaceAPI  $marketplace
  * @property SubscriptionAPI $subscription
  * @property UserAPI         $user
  */
-class MarketplaceAPI
+class MarketplaceAPIClient
 {
     protected APIClient $apiClient;
 
@@ -63,7 +66,7 @@ class MarketplaceAPI
      *
      * @throws MarketplaceAPIException
      */
-    public function authenticate(string $username, #[\SensitiveParameter] string $password): string
+    public function authenticate(string $username, #[SensitiveParameter] string $password): string
     {
         $loginData = json_encode(compact('username', 'password'));
         $sessionToken = (string) $this->apiClient->call('GetSessionToken', (string) $loginData);
