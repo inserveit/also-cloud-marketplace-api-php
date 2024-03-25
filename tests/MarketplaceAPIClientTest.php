@@ -20,7 +20,10 @@ use Psr\Http\Message\ResponseInterface;
  */
 class MarketplaceAPIClientTest extends TestCase
 {
+    /** @psalm-suppress PropertyNotSetInConstructor */
     protected ClientInterface $httpClient;
+
+    /** @psalm-suppress PropertyNotSetInConstructor */
     protected MarketplaceAPIClient $marketplaceAPI;
 
     /**
