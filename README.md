@@ -9,13 +9,11 @@
 ```php
 <?php
 
-use GuzzleHttp\Client;
 use Inserve\ALSOCloudMarketplaceAPI;
 
 require 'vendor/autoload.php';
 
-$client = new Client(['base_uri' => 'https://marketplace.also.nl']);
-$api = new ALSOCloudMarketplaceAPI\MarketplaceAPIClient($client);
+$api = new ALSOCloudMarketplaceAPI\MarketplaceAPIClient();
 
 $api->authenticate('user', 'password');
 $subscriptions = $api->subscriptions->get(12345);
