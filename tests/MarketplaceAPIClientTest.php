@@ -2,103 +2,56 @@
 
 namespace Inserve\ALSOCloudMarketplaceAPI\Tests;
 
-use GuzzleHttp\Client;
-use GuzzleHttp\ClientInterface;
-use GuzzleHttp\Exception\BadResponseException;
-use GuzzleHttp\Handler\MockHandler;
-use GuzzleHttp\HandlerStack;
-use GuzzleHttp\Psr7\Request;
-use GuzzleHttp\Psr7\Response;
+use Inserve\ALSOCloudMarketplaceAPI\API\CompanyAPI;
+use Inserve\ALSOCloudMarketplaceAPI\API\MarketplaceAPI;
+use Inserve\ALSOCloudMarketplaceAPI\API\SubscriptionAPI;
+use Inserve\ALSOCloudMarketplaceAPI\API\UserAPI;
+use Inserve\ALSOCloudMarketplaceAPI\Client\APIClient;
 use Inserve\ALSOCloudMarketplaceAPI\Exception\MarketplaceAPIException;
 use Inserve\ALSOCloudMarketplaceAPI\MarketplaceAPIClient;
+use PHPUnit\Framework\MockObject\Exception;
 use PHPUnit\Framework\TestCase;
-use Psr\Http\Client\RequestExceptionInterface;
-use Psr\Http\Message\ResponseInterface;
 
 /**
  *
  */
 class MarketplaceAPIClientTest extends TestCase
 {
-    /** @psalm-suppress PropertyNotSetInConstructor */
-    protected ClientInterface $httpClient;
-
-    /** @psalm-suppress PropertyNotSetInConstructor */
-    protected MarketplaceAPIClient $marketplaceAPI;
-
     /**
      * @return void
      *
-     * @throws MarketplaceAPIException
+     * @throws Exception
      */
-    public function testAuthenticateException(): void
+    public function testMagicMethods(): void
     {
-        $this->setExpectedResponses([
-            new BadResponseException(
-                '',
-                new Request('POST', '/SimpleAPI/SimpleAPIService.svc/rest/GetSessionToken'),
-                new Response(body: $this->getErrorResponse('Invalid login!'))
-            ),
-        ]);
+        $apiClientMock = $this->createMock(APIClient::class);
+        $apiClient = new MarketplaceAPIClient($apiClientMock);
 
-        $this->expectExceptionMessage('GetSessionToken: Invalid login!');
-        $this->expectException(MarketplaceAPIException::class);
-        $this->marketplaceAPI->authenticate('invalid', 'password');
+        self::assertInstanceOf(CompanyAPI::class, $apiClient->company);
+        self::assertInstanceOf(MarketplaceAPI::class, $apiClient->marketplace);
+        self::assertInstanceOf(SubscriptionAPI::class, $apiClient->subscription);
+        self::assertInstanceOf(UserAPI::class, $apiClient->user);
     }
 
     /**
      * @return void
      *
      * @throws MarketplaceAPIException
+     * @throws Exception
      */
     public function testAuthenticate(): void
     {
-        $this->setExpectedResponses([
-            new Response(200, [], (string) json_encode('sessionToken')),
-        ]);
+        $clientMock = $this->createMock(APIClient::class);
+        $marketplaceAPIClient = new MarketplaceAPIClient($clientMock);
+
+        $clientMock->expects(self::once())
+            ->method('call')
+            ->with('GetSessionToken', '{"username":"unit","password":"test"}')
+            ->willReturn('sessionToken');
 
         self::assertSame(
             'sessionToken',
-            $this->marketplaceAPI->authenticate('unit', 'test')
+            $marketplaceAPIClient->authenticate('unit', 'test')
         );
-    }
-
-    /**
-     * @param array<ResponseInterface|RequestExceptionInterface> $responses
-     *
-     * @return void
-     */
-    protected function setExpectedResponses(array $responses): void
-    {
-        $mockHandler = new MockHandler($responses);
-        $handlerStack = HandlerStack::create($mockHandler);
-
-        $this->httpClient = new Client(['handler' => $handlerStack]);
-        $this->marketplaceAPI = new MarketplaceAPIClient($this->httpClient);
-    }
-
-    /**
-     * @param string $message
-     *
-     * @return string
-     */
-    protected function getErrorResponse(string $message): string
-    {
-        // phpcs:disable
-        return sprintf('<Fault xmlns="http://schemas.microsoft.com/ws/2005/05/envelope/none">
-    <Code>
-        <Value>Sender</Value>
-    </Code>
-    <Reason>
-        <Text xml:lang="en-US">%s</Text>
-    </Reason>
-    <Detail>
-        <ServiceException xmlns="http://schemas.datacontract.org/2004/07/Nervogrid.Platform.API" xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
-            <IsSessionExpired>false</IsSessionExpired>
-            <IssueToken i:nil="true"/>
-            <Message>%s</Message>
-        </ServiceException>
-    </Detail>
-</Fault>', $message, $message);
     }
 }

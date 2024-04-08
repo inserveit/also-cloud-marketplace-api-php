@@ -9,7 +9,9 @@ use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Psr7\Request;
 use Inserve\ALSOCloudMarketplaceAPI\Exception\MarketplaceAPIException;
+use Psr\Log\LoggerAwareTrait;
 use Psr\Log\LoggerInterface;
+use SensitiveParameter;
 use Symfony\Component\PropertyInfo\Extractor\PhpDocExtractor;
 use Symfony\Component\PropertyInfo\PropertyInfoExtractor;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
@@ -29,15 +31,16 @@ use Symfony\Component\Serializer\Serializer;
  */
 class APIClient
 {
+    use LoggerAwareTrait;
+
     protected ?string $sessionToken = null;
     protected Serializer $serializer;
     protected ObjectNormalizer $normalizer;
 
     /**
-     * @param ClientInterface      $client
-     * @param LoggerInterface|null $logger
+     * @param ClientInterface $client
      */
-    public function __construct(protected ClientInterface $client, protected ?LoggerInterface $logger = null)
+    public function __construct(protected ClientInterface $client)
     {
         $classMetadataFactory = new ClassMetadataFactory(new AttributeLoader());
         $nameConverter =  new MetadataAwareNameConverter(
@@ -64,19 +67,11 @@ class APIClient
     }
 
     /**
-     * @return ClientInterface
-     */
-    public function getClient(): ClientInterface
-    {
-        return $this->client;
-    }
-
-    /**
      * @param string $sessionToken
      *
      * @return void
      */
-    public function setSessionToken(#[\SensitiveParameter] string $sessionToken): void
+    public function setSessionToken(#[SensitiveParameter] string $sessionToken): void
     {
         $this->sessionToken = $sessionToken;
     }
@@ -178,7 +173,7 @@ class APIClient
      */
     private function logError(string $message): void
     {
-        if (!$this->logger) {
+        if (! $this->logger) {
             return;
         }
 
