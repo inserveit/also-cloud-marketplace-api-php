@@ -25,12 +25,13 @@ class MarketplaceAPIClient
     /**
      * @param APIClient|null       $apiClient
      * @param LoggerInterface|null $logger
+     * @param string|null          $baseUri
      */
-    public function __construct(?APIClient $apiClient = null, ?LoggerInterface $logger = null)
+    public function __construct(?APIClient $apiClient = null, ?LoggerInterface $logger = null, ?string $baseUri = null)
     {
         if (! $apiClient) {
             $apiClient = new APIClient(
-                new Client(['base_uri' => 'https://marketplace.also.nl'])
+                new Client(['base_uri' => $baseUri ?? 'https://marketplace.also.nl'])
             );
         }
 
