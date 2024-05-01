@@ -81,8 +81,18 @@ class MarketplaceAPIClient
     {
         $loginData = json_encode(compact('username', 'password'));
         $sessionToken = (string) $this->apiClient->call('GetSessionToken', (string) $loginData);
-        $this->apiClient->setSessionToken($sessionToken);
+        $this->setSessionToken($sessionToken);
 
         return $sessionToken;
+    }
+
+    /**
+     * @param string $sessionToken
+     *
+     * @return void
+     */
+    public function setSessionToken(#[SensitiveParameter] string $sessionToken): void
+    {
+        $this->apiClient->setSessionToken($sessionToken);
     }
 }
