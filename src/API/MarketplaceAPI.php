@@ -19,7 +19,7 @@ class MarketplaceAPI extends AbstractAPIClient
     public function list(): array
     {
         $response = $this->apiClient->call(
-            '/GetMarketplaces',
+            'GetMarketplaces',
             '{}'
         );
 

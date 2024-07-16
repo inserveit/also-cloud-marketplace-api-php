@@ -21,7 +21,7 @@ class SubscriptionAPI extends AbstractAPIClient
     public function get(int $accountId): ?Subscription
     {
         $response = $this->apiClient->call(
-            '/GetSubscription',
+            'GetSubscription',
             (string) json_encode(compact('accountId'))
         );
 

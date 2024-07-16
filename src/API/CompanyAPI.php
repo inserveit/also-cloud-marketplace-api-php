@@ -22,7 +22,7 @@ class CompanyAPI extends AbstractAPIClient
     public function get(int $accountId): ?Company
     {
         $response = $this->apiClient->call(
-            '/GetCompany',
+            'GetCompany',
             (string) json_encode(compact('accountId'))
         );
 
@@ -39,7 +39,7 @@ class CompanyAPI extends AbstractAPIClient
     public function list(int $parentAccountId): array
     {
         $response = $this->apiClient->call(
-            '/GetCompanies',
+            'GetCompanies',
             (string) json_encode(compact('parentAccountId'))
         );
 
@@ -63,7 +63,7 @@ class CompanyAPI extends AbstractAPIClient
     public function getCreditLimit(int $accountId): ?CreditLimit
     {
         $response = $this->apiClient->call(
-            '/GetCreditLimit',
+            'GetCreditLimit',
             (string) json_encode(compact('accountId'))
         );
 

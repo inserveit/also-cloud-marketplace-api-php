@@ -21,7 +21,7 @@ class UserAPI extends AbstractAPIClient
     public function get(int $accountId): ?User
     {
         $response = $this->apiClient->call(
-            '/GetUser',
+            'GetUser',
             (string) json_encode(compact('accountId'))
         );
 
@@ -38,7 +38,7 @@ class UserAPI extends AbstractAPIClient
     public function list(int $companyAccountId): array
     {
         $response = $this->apiClient->call(
-            '/GetUsers',
+            'GetUsers',
             (string) json_encode(compact('companyAccountId'))
         );
 
