@@ -39,7 +39,7 @@ class SubscriptionAPI extends AbstractAPIClient
     public function list(int $parentAccountId, bool $excludeUserLevel = false): array
     {
         $response = $this->apiClient->call(
-            '/GetSubscriptions',
+            'GetSubscriptions',
             (string) json_encode(compact('parentAccountId', 'excludeUserLevel'))
         );
 
