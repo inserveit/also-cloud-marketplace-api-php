@@ -9,7 +9,7 @@ use Symfony\Component\Serializer\Exception\ExceptionInterface;
 /**
  *
  */
-class MarketplaceAPI extends AbstractAPIClient
+final class MarketplaceAPI extends AbstractAPIClient
 {
     /**
      * @return Marketplace[]

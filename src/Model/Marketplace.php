@@ -5,7 +5,7 @@ namespace Inserve\ALSOCloudMarketplaceAPI\Model;
 /**
  *
  */
-class Marketplace
+final class Marketplace
 {
     protected ?int $id = null;
     protected ?string $name = null;

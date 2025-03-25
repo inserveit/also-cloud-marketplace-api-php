@@ -7,6 +7,6 @@ use Exception;
 /**
  *
  */
-class MarketplaceAPIException extends Exception
+final class MarketplaceAPIException extends Exception
 {
 }

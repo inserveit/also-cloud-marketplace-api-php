@@ -15,7 +15,7 @@ use PHPUnit\Framework\TestCase;
 /**
  *
  */
-class MarketplaceAPIClientTest extends TestCase
+final class MarketplaceAPIClientTest extends TestCase
 {
     /**
      * @return void

@@ -9,7 +9,7 @@ use Symfony\Component\Serializer\Exception\ExceptionInterface;
 /**
  *
  */
-class SubscriptionAPI extends AbstractAPIClient
+final class SubscriptionAPI extends AbstractAPIClient
 {
     /**
      * @param int $accountId

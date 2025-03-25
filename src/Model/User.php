@@ -5,7 +5,7 @@ namespace Inserve\ALSOCloudMarketplaceAPI\Model;
 /**
  *
  */
-class User
+final class User
 {
     protected ?int $parentAccountId = null;
     protected ?int $accountId = null;

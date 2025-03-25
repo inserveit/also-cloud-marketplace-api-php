@@ -17,7 +17,7 @@ use Psr\Http\Message\ResponseInterface;
 /**
  *
  */
-class APIClientTest extends TestCase
+final class APIClientTest extends TestCase
 {
     /** @psalm-suppress PropertyNotSetInConstructor */
     protected APIClient $apiClient;

@@ -5,7 +5,7 @@ namespace Inserve\ALSOCloudMarketplaceAPI\Model;
 /**
  *
  */
-class Field
+final class Field
 {
     protected ?string $name = null;
     protected ?string $displayName = null;

@@ -5,7 +5,7 @@ namespace Inserve\ALSOCloudMarketplaceAPI\Model;
 /**
  *
  */
-class CreditLimit
+final class CreditLimit
 {
     protected ?string $comment = null;
     protected ?string $curreny = null;

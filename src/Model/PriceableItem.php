@@ -5,7 +5,7 @@ namespace Inserve\ALSOCloudMarketplaceAPI\Model;
 /**
  *
  */
-class PriceableItem
+final class PriceableItem
 {
     protected ?string $chargeType = null;
     protected ?string $priceableItemDescription = null;
