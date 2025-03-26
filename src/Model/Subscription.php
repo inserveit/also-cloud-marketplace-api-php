@@ -29,6 +29,7 @@ final class Subscription
     protected ?int $remainingCreditLimit = null;
     protected ?string $purchaseOrderNumber = null;
     protected ?string $advancePeriodEndDate = null;
+    protected ?string $advancePeriodEndAction = null;
 
     /** @var Field[]|null */
     protected ?array $fields = [];
@@ -491,6 +492,26 @@ final class Subscription
     public function setPurchaseOrderNumber(?string $purchaseOrderNumber): self
     {
         $this->purchaseOrderNumber = $purchaseOrderNumber;
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getAdvancePeriodEndAction(): ?string
+    {
+        return $this->advancePeriodEndAction;
+    }
+
+    /**
+     * @param string|null $advancePeriodEndAction
+     *
+     * @return $this
+     */
+    public function setAdvancePeriodEndAction(?string $advancePeriodEndAction): self
+    {
+        $this->advancePeriodEndAction = $advancePeriodEndAction;
 
         return $this;
     }
