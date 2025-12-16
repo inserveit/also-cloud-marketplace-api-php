@@ -15,6 +15,8 @@ final class PriceableItem
     protected int|float|null $suggestedRetailPrice = null;
     protected ?string $currency = null;
     protected ?int $priceableItemId = null;
+    protected ?string $priceableItemType = null;
+    protected ?int $prepaidPeriodInMonths = null;
     protected ?string $materialNumber = null;
     protected ?string $fieldName = null;
     protected ?string $productNumber = null;
@@ -83,6 +85,21 @@ final class PriceableItem
         return $this->priceableItemId;
     }
 
+    /**
+     * @return string|null
+     */
+    public function getPriceableItemType(): ?string
+    {
+        return $this->priceableItemType;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getPrepaidPeriodInMonths(): ?int
+    {
+        return $this->prepaidPeriodInMonths;
+    }
     /**
      * @param string|null $chargeType
      *
@@ -175,6 +192,30 @@ final class PriceableItem
     public function setPriceableItemId(?int $priceableItemId): self
     {
         $this->priceableItemId = $priceableItemId;
+
+        return $this;
+    }
+
+    /**
+     * @param string|null $priceableItemType
+     *
+     * @return $this
+     */
+    public function setPriceableItemType(?string $priceableItemType): self
+    {
+        $this->priceableItemType = $priceableItemType;
+
+        return $this;
+    }
+
+    /**
+     * @param int|null $prepaidPeriodInMonths
+     *
+     * @return $this
+     */
+    public function setPrepaidPeriodInMonths(?int $prepaidPeriodInMonths): self
+    {
+        $this->prepaidPeriodInMonths = $prepaidPeriodInMonths;
 
         return $this;
     }
